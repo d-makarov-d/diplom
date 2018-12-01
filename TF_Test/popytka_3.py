@@ -20,11 +20,11 @@ def parse_csv(line):
 with open('train/train.csv') as f:
     l1 = f.readline()
     DATA_LINE_LENGTH = int(l1.split(' ')[0])
-train_dataset = tf.data.TextLineDataset('train/train.csv')
-train_dataset = train_dataset.skip(1)  # skip the first header row
-train_dataset = train_dataset.map(parse_csv)  # parse each row
-train_dataset = train_dataset.shuffle(buffer_size=1000)  # randomize
-train_dataset = train_dataset.batch(32)
+    train_dataset = tf.data.TextLineDataset('train/train.csv')
+    train_dataset = train_dataset.skip(1)  # skip the first header row
+    train_dataset = train_dataset.map(parse_csv)  # parse each row
+    train_dataset = train_dataset.shuffle(buffer_size=1000)  # randomize
+    train_dataset = train_dataset.batch(32)
 
 variable = tf.Variable(DATA_LINE_LENGTH*[0.5], dtype=tf.float32, name="variable")
 x = tf.placeholder(tf.float32, [None, DATA_LINE_LENGTH], "data")
@@ -37,7 +37,7 @@ x1 = tf.placeholder(tf.float32, shape=(1251,))
 y1 = tf.norm(tf.abs(tf.ifft(tf.multiply(tf.fft(tf.complex(x1 / tf.norm(x1), 0.)), tf.complex(variable, 0.)))))
 #y1 = tf.norm(tf.abs(tf.ifft( tf.complex(tf.abs(tf.multiply(tf.fft(tf.complex(x1 / tf.norm(x1), 0.)), tf.complex(variable, 0.))), 0.)) ))
 
-epoch = 300
+epoch = 30
 losses = epoch*[0]
 
 sess = tf.Session()
