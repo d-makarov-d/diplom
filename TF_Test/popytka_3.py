@@ -1,5 +1,6 @@
 import tensorflow as tf
 import matplotlib.pyplot as plt
+import matplotlib as mp
 import random as rnd
 import numpy as np
 
@@ -17,7 +18,7 @@ def parse_csv(line):
     return [features, label]
 
 
-with open('train/train.csv') as f:
+with open('train/train_part_2.csv') as f:
     l1 = f.readline()
     DATA_LINE_LENGTH = int(l1.split(' ')[0])
     train_dataset = tf.data.TextLineDataset('train/train.csv')
@@ -29,40 +30,34 @@ with open('train/train.csv') as f:
 variable = tf.Variable(DATA_LINE_LENGTH*[0.5], dtype=tf.float32, name="variable")
 x = tf.placeholder(tf.float32, [None, DATA_LINE_LENGTH], "data")
 y_ = tf.placeholder(tf.int32, None, "label")
-#y = tf.norm(tf.abs(tf.ifft( tf.complex(tf.abs(tf.multiply(tf.fft(tf.complex(x / tf.norm(x), 0.)), tf.complex(variable, 0.))), 0.)) ))
-y = tf.norm(tf.abs(tf.ifft(tf.multiply(tf.fft(tf.complex(x / tf.norm(x), 0.)), tf.complex(variable, 0.)))))
+#y = tf.norm(tf.abs(tf.ifft( tf.complex(tf.abs(tf.multiply(tf.fft(tf.complex(x / tf.norm(x), 0.)), tf.complex(variable, 0.))), 0.)) )) #нивилирует сдвиг фазы
+y = tf.norm(tf.abs(tf.ifft(tf.multiply(tf.fft(tf.complex(x / tf.norm(x), 0.)), tf.complex(variable, 0.))))) #лучше работает
 loss = tf.reduce_mean(tf.pow(tf.pow(y, 2) - tf.to_float(y_), 2))
 #loss = tf.reduce_sum(tf.pow(tf.reduce_mean(y) - tf.to_float(y_), 2))
-x1 = tf.placeholder(tf.float32, shape=(1251,))
-y1 = tf.norm(tf.abs(tf.ifft(tf.multiply(tf.fft(tf.complex(x1 / tf.norm(x1), 0.)), tf.complex(variable, 0.)))))
-#y1 = tf.norm(tf.abs(tf.ifft( tf.complex(tf.abs(tf.multiply(tf.fft(tf.complex(x1 / tf.norm(x1), 0.)), tf.complex(variable, 0.))), 0.)) ))
 
-epoch = 30
+epoch = 400
 losses = epoch*[0]
 
 sess = tf.Session()
 sess.run(tf.global_variables_initializer())
 [X, Y_] = sess.run(train_dataset.make_one_shot_iterator().get_next())
-test_batch = 32*[None]
-for i in range(32):
-    test_batch[i] = [X[i], Y_[i], rnd.random()]
+test_batch = {"X": X, "Y_": Y_}
 
 fig00 = plt.figure(figsize=(3, 3))
 ax = fig00.add_subplot(111)
 for k in range(32):
-    if test_batch[k][1] == 0:
-        ax.plot(sess.run(y1, feed_dict={x1: test_batch[k][0], y_: test_batch[k][1]}), test_batch[k][2], 'go')
+    if test_batch["Y_"][k] == 0:
+        ax.plot(sess.run(y, feed_dict={x: np.reshape(test_batch["X"][k], (1, 1251)), y_: test_batch["Y_"][k]}), k, 'go')
     else:
-        ax.plot(sess.run(y1, feed_dict={x1: test_batch[k][0], y_: test_batch[k][1]}), test_batch[k][2], 'r+')
-
+        ax.plot(sess.run(y, feed_dict={x: np.reshape(test_batch["X"][k], (1, 1251)), y_: test_batch["Y_"][k]}), k, 'r+')
 
 for i in range(epoch):
     [X, Y_] = sess.run(train_dataset.make_one_shot_iterator().get_next())
-    sess.run(tf.train.GradientDescentOptimizer(1).minimize(loss), feed_dict={x: X, y_: Y_})
+    sess.run(tf.train.GradientDescentOptimizer(0.1).minimize(loss), feed_dict={x: X, y_: Y_})
     losses[i] = sess.run(loss, feed_dict={x: X, y_: Y_})
     print("Loss: {}, Epoch: {}".format(losses[i], i))
 
-f = open('var.dta', 'w')
+f = open('ans_sig_part_2.dta', 'w')
 var = sess.run(variable)
 for i in range(len(var)):
     f.write('{}|'.format(var[i]))
@@ -72,17 +67,25 @@ fig0 = plt.figure(figsize=(3, 3))
 ax = fig0.add_subplot(111)
 
 for k in range(32):
-    if test_batch[k][1] == 0:
-        ax.plot(sess.run(y1, feed_dict={x1: test_batch[k][0], y_: test_batch[k][1]}), test_batch[k][2], 'go')
+    if test_batch["Y_"][k] == 0:
+        ax.plot(sess.run(y, feed_dict={x: np.reshape(test_batch["X"][k], (1, 1251)), y_: test_batch["Y_"][k]}), k, 'go')
     else:
-        ax.plot(sess.run(y1, feed_dict={x1: test_batch[k][0], y_: test_batch[k][1]}), test_batch[k][2], 'r+')
+        ax.plot(sess.run(y, feed_dict={x: np.reshape(test_batch["X"][k], (1, 1251)), y_: test_batch["Y_"][k]}), k, 'r+')
 
 fig1 = plt.figure(figsize=(3, 3))
 ax = fig1.add_subplot(111)
 ax.plot(losses)
+ax.set_xlabel('Epochs')
+ax.set_ylabel('Loss')
+for obj in ax.findobj(mp.text.Text):
+    obj.set_fontsize(26)
 
 fig2 = plt.figure(figsize=(3, 3))
 ax = fig2.add_subplot(111)
-ax.plot(sess.run(variable))
+ax.plot(np.linspace(0, 62.5, 1251), sess.run(variable))
+ax.set_xlabel('Frequency, Hz')
+ax.set_ylabel('Power spectra, Hz')
+for obj in ax.findobj(mp.text.Text):
+    obj.set_fontsize(26)
 
 plt.show()

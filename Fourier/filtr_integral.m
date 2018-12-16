@@ -1,8 +1,8 @@
 function mask = filtr_integral(T, sig)
-    str = fileread('var.dta');
+    str = fileread('ans_sig_part_1.dta');
     var = str2double(strsplit(str, '|'));
     var(length(var)) = [];
-    var = (var - 0.5)*2;
+    var = (var - min(var))./(max(var) - min(var));
     
     fft_sig = fft(sig);
     fft_sig1 = mul(fft_sig,var);
@@ -58,7 +58,7 @@ function ans_mask = apply_frame(X,Y, fr_len)
 %     s2 = Y(half_len:length(X)-half_len);
 %     x = X(half_len:length(X)-half_len);
     %y2 = conv(ones(1,1000), abs(sig1));
-    mask = y>18;
+    mask = y>40;
     ans_mask = false(size(X));
     ans_mask(half_len:length(X)-half_len) = mask;
 end

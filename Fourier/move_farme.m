@@ -1,5 +1,15 @@
+%22890216.adb - не шум
+%22880207.adb - шум
 function move_farme()
     global FRAME_LENGTH DELTA_FRAME DOT_LENGTH T dx sig_axes fourier_axes sig pattern N;
+    
+    %file reading in mkm/sec
+    [y,par]=adb_read('22890216.adb','s',0);
+    %time vector, T in seconds
+    T=(0:length(y)-1)/par.fs;
+    %fft signal
+    sig = y(:,2)-mean(y(:,2));
+    
     FRAME_LENGTH = 100;
     DELTA_FRAME = 20;
     DOT_LENGTH = get_dot_length();
@@ -13,12 +23,6 @@ function move_farme()
     sig_fig = figure('Name','Sig','NumberTitle','off', 'InnerPosition', [10,50,1300,300]);
     sig_axes = axes(sig_fig, 'Position',[0.1 0.1 0.8 0.8]);
     
-    %file reading in mkm/sec
-    [y,par]=adb_read('22890216.adb','s',0);
-    %time vector, T in seconds
-    T=(0:length(y)-1)/par.fs;
-    %fft signal
-    sig = y(:,2)-mean(y(:,2));
     replot();
     
     sig_fig.WindowKeyPressFcn = @key_pressed_callback;
@@ -61,12 +65,12 @@ function key_pressed_callback(source, event)
         case 'leftarrow'
             dx = dx - 1;
         case '1'
-            pattern{length(pattern)+1} = [transpose(sig( frame1(dx) )), 1];
+            pattern{length(pattern)+1} = [transpose(sig( frame1(dx) )), 1]; %signal
         case '0'
-            pattern{length(pattern)+1} = [transpose(sig( frame1(dx) )), 0];
+            pattern{length(pattern)+1} = [transpose(sig( frame1(dx) )), 0]; %no signal
         case 's'
-            save('patterns/1.mat', 'pattern');
-            fileID = fopen('patterns/train.csv', 'w');
+            save('patterns/sig_part_2_pattern.mat', 'pattern');
+            fileID = fopen('patterns/train_part_2.csv', 'w');
             format_spec = '%f';
             for i = 1:(DOT_LENGTH-1)
                 format_spec = strcat(format_spec, ' %f');
