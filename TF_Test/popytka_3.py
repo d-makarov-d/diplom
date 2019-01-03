@@ -82,9 +82,9 @@ for obj in ax.findobj(mp.text.Text):
 
 fig2 = plt.figure(figsize=(3, 3))
 ax = fig2.add_subplot(111)
-ax.plot(np.linspace(0, 62.5, 1251), sess.run(variable))
+ax.plot(np.linspace(0, 62.5/2, 625), sess.run(variable)[0:625])
 ax.set_xlabel('Frequency, Hz')
-ax.set_ylabel('Power spectra, Hz')
+ax.set_ylabel('Spectra')
 for obj in ax.findobj(mp.text.Text):
     obj.set_fontsize(26)
 

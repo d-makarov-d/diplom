@@ -3,12 +3,12 @@
 function test_cor()
     global sig T;
     %file reading in mkm/sec
-    [y,par]=adb_read('22880207.adb','s',0);
+    [y,par]=adb_read('22890216.adb','s',0);
     %time vector, T in seconds
     T=(0:length(y)-1)/par.fs;
     sig = y(:,2)-mean(y(:,2));
     [mask_hi, test_sig] = mk_test_sig();
-    mask_ai = filtr_integral(T, sig);
+    [mask_ai, ~] = filtr_integral(T, sig);
     
     hold on;
     plot(T, sig-50, 'b');

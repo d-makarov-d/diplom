@@ -1,5 +1,5 @@
-function mask = filtr_integral(T, sig)
-    str = fileread('ans_sig_part_1.dta');
+function [mask, a] = filtr_integral(T, sig)
+    str = fileread('ans_sig_part_2.dta');
     var = str2double(strsplit(str, '|'));
     var(length(var)) = [];
     var = (var - min(var))./(max(var) - min(var));
@@ -7,7 +7,7 @@ function mask = filtr_integral(T, sig)
     fft_sig = fft(sig);
     fft_sig1 = mul(fft_sig,var);
     sig1 = real(ifft(fft_sig1));
-    mask = apply_frame(T,sig1, 2001);
+    [mask, a] = apply_frame(T,sig1, 2001);
     hold on;
     plot(T,sig1, 'b');
     plot(T(mask), sig1(mask), 'r');
@@ -49,7 +49,7 @@ function a = integ_frame(X, Y, fr_len)
     plot(x,a);
 end
 
-function ans_mask = apply_frame(X,Y, fr_len)
+function [ans_mask, y] = apply_frame(X,Y, fr_len)
     y = integ_frame(X, abs(Y), fr_len);
     if rem(fr_len, 2) == 0
         fr_len = fr_len + 1;
@@ -58,7 +58,7 @@ function ans_mask = apply_frame(X,Y, fr_len)
 %     s2 = Y(half_len:length(X)-half_len);
 %     x = X(half_len:length(X)-half_len);
     %y2 = conv(ones(1,1000), abs(sig1));
-    mask = y>40;
+    mask = y>50;
     ans_mask = false(size(X));
     ans_mask(half_len:length(X)-half_len) = mask;
 end

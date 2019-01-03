@@ -2,25 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dfca3c3f-ce30-4ad1-a294-1b0bfe18130e" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/../Fourier/ans_sig_part_1.dta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Fourier/ans_sig_part_2.dta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Fourier/patterns/sig_part_1_pattern.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Fourier/patterns/sig_part_2_pattern.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Fourier/patterns/train_part_1.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Fourier/patterns/train_part_2.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ans_sig_part_1.dta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ans_sig_part_2.dta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/train/train_part_1.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/train/train_part_2.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Fourier/filter har/main.asv" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Fourier/filtr_integral.m" beforeDir="false" afterPath="$PROJECT_DIR$/../Fourier/filtr_integral.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Fourier/move_farme.m" beforeDir="false" afterPath="$PROJECT_DIR$/../Fourier/move_farme.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Fourier/test_cor.m" beforeDir="false" afterPath="$PROJECT_DIR$/../Fourier/test_cor.m" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ans_sig_part_2.dta" beforeDir="false" afterPath="$PROJECT_DIR$/ans_sig_part_2.dta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/popytka_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/popytka_3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../powerpointbase.com-793.pptx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../powerpointbase.com-819.pptx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Презентация_ответ_за _спрос.pptx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../презентация_спрос.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../промежуточный_отчет_марченкову.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../отчетность/photos/Filtr.png" beforeDir="false" afterPath="$PROJECT_DIR$/../отчетность/photos/Filtr.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../отчетность/отчет коне 7 сем.pptx" beforeDir="false" afterPath="$PROJECT_DIR$/../отчетность/отчет коне 7 сем.pptx" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,8 +22,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/popytka_3.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
-              <caret line="55" column="49" lean-forward="true" selection-start-line="55" selection-start-column="49" selection-end-line="55" selection-end-column="49" />
+            <state relative-caret-position="-26">
+              <caret line="55" column="49" selection-start-line="55" selection-start-column="49" selection-end-line="55" selection-end-column="49" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -236,7 +225,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32962447" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32684284" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32684284" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39638385" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -326,8 +315,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/popytka_3.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="55" column="49" lean-forward="true" selection-start-line="55" selection-start-column="49" selection-end-line="55" selection-end-column="49" />
+        <state relative-caret-position="-26">
+          <caret line="55" column="49" selection-start-line="55" selection-start-column="49" selection-end-line="55" selection-end-column="49" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>
